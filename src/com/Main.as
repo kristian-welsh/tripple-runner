@@ -2,6 +2,8 @@ package com{
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.events.TimerEvent;
 	
 	public class Main extends Sprite {
 		
@@ -20,38 +22,50 @@ package com{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			drawSeperators();
-			drawChars();
+			initChars();
+			
+			stage.addEventListener(KeyboardEvent.KEY_UP, handleKeyUp);
+			stage.addEventListener(TimerEvent.TIMER, tick);
 		}
 		
 		private function drawSeperators():void {
 			graphics.beginFill(0xFFFFFF);
-			graphics.drawRect(0, stage.stageHeight / 3 - 10, stage.stageWidth, 10);
+			graphics.drawRect(0, 1 * stage.stageHeight / 3 - 10, stage.stageWidth, 10);
 			graphics.drawRect(0, 2 * stage.stageHeight / 3 - 10, stage.stageWidth, 10);
 			graphics.drawRect(0, 3 * stage.stageHeight / 3 - 10, stage.stageWidth, 10);
 			graphics.endFill();
 		}
 		
-		private function drawChars():void {
-			char1 = new MovieClip();
-			char2 = new MovieClip();
-			char3 = new MovieClip();
-			
-			drawChar(10, 1 * stage.stageHeight / 3 - CHAR_WIDTH - 10, char1);
-			drawChar(10, 2 * stage.stageHeight / 3 - CHAR_WIDTH - 10, char2);
-			drawChar(10, 3 * stage.stageHeight / 3 - CHAR_WIDTH - 10, char3);
+		private function initChars():void {
+			char1 = new Char(10, 1 * stage.stageHeight / 3 - 10);
+			char2 = new Char(10, 2 * stage.stageHeight / 3 - 10);
+			char3 = new Char(10, 3 * stage.stageHeight / 3 - 10);
 			
 			stage.addChild(char1);
 			stage.addChild(char2);
 			stage.addChild(char3);
 		}
 		
-		private function drawChar(x:Number, y:Number, ref:Sprite):void {
-			ref.graphics.beginFill(0xFFFFFF);
-			ref.graphics.drawRect(0, 0, CHAR_WIDTH, CHAR_WIDTH);
-			ref.graphics.endFill();
-			ref.x = x;
-			ref.y = y;
-			stage.addChild(ref);
+		private function handleKeyUp(e:KeyboardEvent):void {
+			switch(e.keyCode) {
+				case 90:
+					jump(char1);
+					break;
+				case 88:
+					jump(char2);
+					break;
+				case 67:
+					jump(char3);
+					break;
+			}
+		}
+		
+		private function jump(char:Sprite):void {
+			
+		}
+		
+		private function tick(e:TimerEvent):void {
+			
 		}
 	}
 }
