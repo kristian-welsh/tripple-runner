@@ -10,9 +10,9 @@ package com{
 		
 		static private const CHAR_WIDTH:Number = 20;
 		
-		private var char1:Sprite;
-		private var char2:Sprite;
-		private var char3:Sprite;
+		private var char1:Char;
+		private var char2:Char;
+		private var char3:Char;
 		
 		private var jumping:Boolean = false;
 		
@@ -30,7 +30,7 @@ package com{
 			drawSeperators();
 			initChars();
 			
-			var timer:Timer = new Timer(1000/60);
+			var timer:Timer = new Timer(1);
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, handleKeyUp);
 			timer.addEventListener(TimerEvent.TIMER, tick);
@@ -59,35 +59,21 @@ package com{
 		private function handleKeyUp(e:KeyboardEvent):void {
 			switch(e.keyCode) {
 				case 90:
-					jump(char1);
+					char1.jump();
 					break;
 				case 88:
-					jump(char2);
+					char2.jump();
 					break;
 				case 67:
-					jump(char3);
+					char3.jump();
 					break;
-			}
-		}
-		
-		private function jump(char:Sprite):void {
-			if(!jumping) {
-				jumping = true;
-				vel = -15;
-				groundPos = char1.y;
 			}
 		}
 		
 		private function tick(e:TimerEvent):void {
-			if(jumping) {
-				const GRAVITY:Number = 1;
-				vel += GRAVITY;
-				char1.y += vel;
-				if (char1.y >= groundPos) {
-					char1.y = groundPos
-					jumping = false;
-				}
-			}
+			char1.tick();
+			char2.tick();
+			char3.tick();
 		}
 	}
 }
