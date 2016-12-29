@@ -4,6 +4,7 @@ package com{
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	public class Main extends Sprite {
 		
@@ -12,6 +13,11 @@ package com{
 		private var char1:Sprite;
 		private var char2:Sprite;
 		private var char3:Sprite;
+		
+		private var jumping:Boolean = false;
+		
+		private var vel:Number = 0;
+		private var groundPos:Number;
 		
 		public function Main() {
 			if (stage) init();
@@ -24,8 +30,12 @@ package com{
 			drawSeperators();
 			initChars();
 			
+			var timer:Timer = new Timer(1000/60);
+			
 			stage.addEventListener(KeyboardEvent.KEY_UP, handleKeyUp);
-			stage.addEventListener(TimerEvent.TIMER, tick);
+			timer.addEventListener(TimerEvent.TIMER, tick);
+			
+			timer.start();
 		}
 		
 		private function drawSeperators():void {
@@ -61,11 +71,23 @@ package com{
 		}
 		
 		private function jump(char:Sprite):void {
-			
+			if(!jumping) {
+				jumping = true;
+				vel = -15;
+				groundPos = char1.y;
+			}
 		}
 		
 		private function tick(e:TimerEvent):void {
-			
+			if(jumping) {
+				const GRAVITY:Number = 1;
+				vel += GRAVITY;
+				char1.y += vel;
+				if (char1.y >= groundPos) {
+					char1.y = groundPos
+					jumping = false;
+				}
+			}
 		}
 	}
 }
