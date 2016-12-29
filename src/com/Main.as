@@ -25,8 +25,9 @@ package com{
 		
 		private function drawSeperators():void {
 			graphics.beginFill(0xFFFFFF);
-			graphics.drawRect(0, stage.stageHeight / 3, stage.stageWidth, 10);
-			graphics.drawRect(0, 2 * stage.stageHeight / 3, stage.stageWidth, 10);
+			graphics.drawRect(0, stage.stageHeight / 3 - 10, stage.stageWidth, 10);
+			graphics.drawRect(0, 2 * stage.stageHeight / 3 - 10, stage.stageWidth, 10);
+			graphics.drawRect(0, 3 * stage.stageHeight / 3 - 10, stage.stageWidth, 10);
 			graphics.endFill();
 		}
 		
@@ -35,9 +36,9 @@ package com{
 			char2 = new MovieClip();
 			char3 = new MovieClip();
 			
-			drawChar(10, 1 * stage.stageHeight / 3 - CHAR_WIDTH, char1);
-			drawChar(10, 2 * stage.stageHeight / 3 - CHAR_WIDTH, char2);
-			drawChar(10, 3 * stage.stageHeight / 3 - CHAR_WIDTH, char3);
+			drawChar(10, 1 * stage.stageHeight / 3 - CHAR_WIDTH - 10, char1);
+			drawChar(10, 2 * stage.stageHeight / 3 - CHAR_WIDTH - 10, char2);
+			drawChar(10, 3 * stage.stageHeight / 3 - CHAR_WIDTH - 10, char3);
 			
 			stage.addChild(char1);
 			stage.addChild(char2);
