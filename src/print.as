@@ -1,7 +1,7 @@
 package {
 	import org.flashdevelop.utils.FlashConnect;
 	
-	function print(out:Object):void {
+	public function print(out:Object):void {
 		FlashConnect.trace(out.toString());
 	}
 }
