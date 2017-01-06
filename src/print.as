@@ -1,4 +1,4 @@
-package com {
+package {
 	import org.flashdevelop.utils.FlashConnect;
 	
 	function print(out:Object):void {

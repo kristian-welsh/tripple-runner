@@ -4,15 +4,18 @@ package com{
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.TimerEvent;
+	import flash.sampler.NewObjectSample;
 	import flash.utils.Timer;
 	
 	public class Main extends Sprite {
 		
-		static private const CHAR_WIDTH:Number = 20;
-		
 		private var char1:Char;
 		private var char2:Char;
 		private var char3:Char;
+		
+		private var obstacle1:Obstacle;
+		private var obstacle2:Obstacle;
+		private var obstacle3:Obstacle;
 		
 		private var jumping:Boolean = false;
 		
@@ -27,8 +30,12 @@ package com{
 		private function init(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			Globals.STAGE_HEIGHT = stage.stageHeight;
+			Globals.STAGE_WIDTH = stage.stageWidth;
+			
 			drawSeperators();
 			initChars();
+			initObstacles();
 			
 			var timer:Timer = new Timer(1);
 			
@@ -40,20 +47,30 @@ package com{
 		
 		private function drawSeperators():void {
 			graphics.beginFill(0xFFFFFF);
-			graphics.drawRect(0, 1 * stage.stageHeight / 3 - 10, stage.stageWidth, 10);
-			graphics.drawRect(0, 2 * stage.stageHeight / 3 - 10, stage.stageWidth, 10);
-			graphics.drawRect(0, 3 * stage.stageHeight / 3 - 10, stage.stageWidth, 10);
+			graphics.drawRect(0, 1 * stage.stageHeight / 3 - Globals.DIVIDER_WIDTH, stage.stageWidth, Globals.DIVIDER_WIDTH);
+			graphics.drawRect(0, 2 * stage.stageHeight / 3 - Globals.DIVIDER_WIDTH, stage.stageWidth, Globals.DIVIDER_WIDTH);
+			graphics.drawRect(0, 3 * stage.stageHeight / 3 - Globals.DIVIDER_WIDTH, stage.stageWidth, Globals.DIVIDER_WIDTH);
 			graphics.endFill();
 		}
 		
 		private function initChars():void {
-			char1 = new Char(10, 1 * stage.stageHeight / 3 - 10);
-			char2 = new Char(10, 2 * stage.stageHeight / 3 - 10);
-			char3 = new Char(10, 3 * stage.stageHeight / 3 - 10);
+			char1 = new Char(10, 1 * stage.stageHeight / 3 - Globals.DIVIDER_WIDTH);
+			char2 = new Char(10, 2 * stage.stageHeight / 3 - Globals.DIVIDER_WIDTH);
+			char3 = new Char(10, 3 * stage.stageHeight / 3 - Globals.DIVIDER_WIDTH);
 			
 			stage.addChild(char1);
 			stage.addChild(char2);
 			stage.addChild(char3);
+		}
+		
+		private function initObstacles():void {
+			obstacle1 = new Obstacle(1);
+			obstacle2 = new Obstacle(2);
+			obstacle3 = new Obstacle(3);
+			
+			stage.addChild(obstacle1);
+			stage.addChild(obstacle2);
+			stage.addChild(obstacle3);
 		}
 		
 		private function handleKeyUp(e:KeyboardEvent):void {
