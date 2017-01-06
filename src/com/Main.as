@@ -41,6 +41,7 @@ package com {
 			initObstacles();
 			initScoreDisplay();
 			addChildren();
+			displayInstructions();
 			
 			timer = new Timer(1);
 			
@@ -100,6 +101,38 @@ package com {
 			stage.addChild(char3);
 			
 			stage.addChild(scoreDisplay);
+		}
+		
+		private function displayInstructions():void {
+			var format:TextFormat = new TextFormat("Arial Black", 20, 0xFFFFFF);
+			
+			var z:TextField = new TextField();
+			z.x = Globals.STAGE_WIDTH - 40;
+			z.y = 100 * 0 + 40;
+			z.type = TextFieldType.DYNAMIC;
+			z.defaultTextFormat = format;
+			
+			z.appendText("Z");
+			
+			var x:TextField = new TextField();
+			x.x = Globals.STAGE_WIDTH - 40;
+			x.y = 150 * 1 + 40;
+			x.type = TextFieldType.DYNAMIC;
+			x.defaultTextFormat = format;
+			
+			x.appendText("X");
+			
+			var c:TextField = new TextField();
+			c.x = Globals.STAGE_WIDTH - 40;
+			c.y = 140 * 2 + 40;
+			c.type = TextFieldType.DYNAMIC;
+			c.defaultTextFormat = format;
+			
+			c.appendText("C");
+			
+			stage.addChild(z);
+			stage.addChild(x);
+			stage.addChild(c);
 		}
 		
 		private function handleKeyUp(e:KeyboardEvent):void {
