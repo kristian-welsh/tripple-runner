@@ -20,6 +20,10 @@ package com {
 			speed = randomBoundedNum(5, 8)
 			this.char = char;
 			
+			draw();
+		}
+		
+		private function draw():void {
 			graphics.beginFill(0xFFFFFF);
 			graphics.drawRect(0, 0, WIDTH, HEIGHT);
 			graphics.endFill();
@@ -48,6 +52,11 @@ package com {
 		
 		private function randomBoundedNum(low:Number, high:Number):Number {
 			return Math.random() * (high - low) + low;
+		}
+		
+		public function reset():void {
+			this.x = Globals.STAGE_WIDTH;
+			speed = randomBoundedNum(5, 10);
 		}
 	}
 }

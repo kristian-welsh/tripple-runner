@@ -51,5 +51,10 @@ package com {
 			living = false;
 			dispatchEvent(new Event("DIE"));
 		}
+		
+		public function reset():void {
+			draw(0xFFFFFF);
+			living = true;
+		}
 	}
 }

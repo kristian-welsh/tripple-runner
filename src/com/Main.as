@@ -19,15 +19,11 @@ package com {
 		private var obstacle2:Obstacle;
 		private var obstacle3:Obstacle;
 		
-		private var jumping:Boolean = false;
-		
-		private var vel:Number = 0;
-		private var groundPos:Number;
-		
 		private var liveChars:int = 3;
 		private var score:int = 0;
 		
 		private var scoreDisplay:TextField;
+		private var timer:Timer;
 		
 		public function Main() {
 			if (stage) init();
@@ -46,7 +42,7 @@ package com {
 			initScoreDisplay();
 			addChildren();
 			
-			var timer:Timer = new Timer(1);
+			timer = new Timer(1);
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, handleKeyUp);
 			timer.addEventListener(TimerEvent.TIMER, tick);
@@ -59,7 +55,6 @@ package com {
 			scoreDisplay.x = Globals.STAGE_WIDTH / 2 - 40;
 			scoreDisplay.y = 10;
 			scoreDisplay.type = TextFieldType.DYNAMIC;
-			//scoreDisplay.textColor = ;
 			
 			var format:TextFormat = new TextFormat("Arial Black", 40, 0xFFFFFF);
 			scoreDisplay.defaultTextFormat = format;
@@ -107,15 +102,6 @@ package com {
 			stage.addChild(scoreDisplay);
 		}
 		
-		private function killChar(e:Event):void {
-			liveChars--;
-		}
-		
-		private function scorePoint(e:Event = null):void {
-			score += liveChars;
-			scoreDisplay.text = ""+score;
-		}
-		
 		private function handleKeyUp(e:KeyboardEvent):void {
 			switch(e.keyCode) {
 				case 90:
@@ -137,6 +123,36 @@ package com {
 			obstacle1.tick();
 			obstacle2.tick();
 			obstacle3.tick();
+		}
+		
+		private function killChar(e:Event):void {
+			liveChars--;
+			if (liveChars == 0)
+				endGame();
+		}
+		
+		private function scorePoint(e:Event = null):void {
+			score += liveChars;
+			scoreDisplay.text = ""+score;
+		}
+		
+		private function endGame():void {
+			var newGameTimer:Timer = new Timer(3 * 1000, 1);
+			newGameTimer.addEventListener(TimerEvent.TIMER_COMPLETE, newGame);
+			newGameTimer.start();
+		}
+		
+		private function newGame(e:TimerEvent = null):void {
+			char1.reset();
+			char2.reset();
+			char3.reset();
+			obstacle1.reset();
+			obstacle2.reset();
+			obstacle3.reset();
+			
+			liveChars = 3;
+			score = 0;
+			scoreDisplay.text = "0";
 		}
 	}
 }
