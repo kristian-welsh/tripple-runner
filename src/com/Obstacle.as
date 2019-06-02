@@ -32,8 +32,7 @@ package com {
 		public function tick():void {
 			this.x -= speed;
 			if (this.x + WIDTH < 0) {
-				this.x = Globals.STAGE_WIDTH;
-				speed = randomBoundedNum(5, 10);
+				reset();
 				dispatchEvent(new Event("SCORE"));
 			}
 			collide();
